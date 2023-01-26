@@ -20,3 +20,8 @@ export type ColorProps = {
     | "lightBlue"
     | "text";
 };
+
+export type PropsDados = {
+  descricao: string;
+  status: boolean;
+};

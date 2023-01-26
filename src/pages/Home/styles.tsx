@@ -46,3 +46,7 @@ export const InfoNone = styled.div`
     border-radius: 8px;
   `}
 `;
+
+export const List = styled.div`
+  margin-top: 24px;
+`;

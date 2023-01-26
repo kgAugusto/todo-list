@@ -9,7 +9,7 @@ export function StatusTarefas() {
           <span>0</span>
         </S.Info>
         <S.Info color="purple">
-          {/* <p>Concluídas</p> */}
+          <p>Concluídas</p>
           <span>0</span>
         </S.Info>
       </S.Container>

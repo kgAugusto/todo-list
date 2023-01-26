@@ -3,13 +3,10 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
+import { Card } from "../../components/Card";
 import { StatusTarefas } from "../../components/StatusTarefas";
 import * as S from "./styles";
-
-type PropsDados = {
-  descricao: string;
-  status: boolean;
-};
+import { PropsDados } from "../../libs";
 
 export function Home() {
   const [dados, setDados] = useState<PropsDados[]>([]);
@@ -19,6 +16,10 @@ export function Home() {
     {
       descricao: "Gabriel Augusto",
       status: true,
+    },
+    {
+      descricao: "Jonayhan Silva",
+      status: false,
     },
   ];
 
@@ -63,11 +64,16 @@ export function Home() {
             </S.InfoNone>
           </>
         ) : (
-          <>
+          <S.List>
             {dados.map((item) => (
-              <li>{item.descricao}</li>
+              <Card dados={item} />
             ))}
-          </>
+          </S.List>
+          // <>
+          //   {dados.map((item) => (
+          //     <li>{item.descricao}</li>
+          //   ))}
+          // </>
         )}
       </S.Section>
     </>
