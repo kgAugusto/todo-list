@@ -7,25 +7,47 @@ import { Card } from "../../components/Card";
 import { StatusTarefas } from "../../components/StatusTarefas";
 import * as S from "./styles";
 import { PropsDados } from "../../libs";
+import uuid from "react-uuid";
 
 export function Home() {
   const [dados, setDados] = useState<PropsDados[]>([]);
-  const { control, getValues } = useForm();
+  const { control, getValues, reset } = useForm();
 
   const temp: PropsDados[] = [
-    {
-      descricao: "Gabriel Augusto",
-      status: true,
-    },
-    {
-      descricao: "Jonayhan Silva",
-      status: false,
-    },
+    // {
+    //   id: "1",
+    //   descricao: "Gabriel Augusto",
+    //   status: true,
+    // },
+    // {
+    //   id: "2",
+    //   descricao: "Jonayhan Silva",
+    //   status: false,
+    // },
   ];
 
-  const handleCriar = (value: string) => {
-    setDados([...dados, { descricao: value, status: true }]);
+  const handleCreate = (value: string) => {
+    setDados([...dados, { id: uuid(), descricao: value, status: false }]);
+    reset();
   };
+
+  const deleteTask = (value: string) => {
+    let temp = dados.filter((item) => item.id != value);
+    setDados(temp);
+  };
+
+  const concludeTask = (value: string) => {
+    const aux = dados.findIndex((item) => {
+      return item.id == value;
+    });
+
+    const temp = [...dados];
+
+    temp[aux].status = !temp[aux].status;
+
+    setDados(temp);
+  };
+
   useEffect(() => {
     setDados(temp);
   }, []);
@@ -35,6 +57,7 @@ export function Home() {
       <S.Section>
         <div className="input">
           <Controller
+            defaultValue={""}
             name="tarefa"
             control={control}
             render={({ field: { value = "", onChange } }) => {
@@ -49,7 +72,7 @@ export function Home() {
             }}
           />
 
-          <Button onClick={() => handleCriar(getValues("tarefa"))}>
+          <Button onClick={() => handleCreate(getValues("tarefa"))}>
             Criar
           </Button>
         </div>
@@ -65,15 +88,15 @@ export function Home() {
           </>
         ) : (
           <S.List>
-            {dados.map((item) => (
-              <Card dados={item} />
+            {dados.map((item, index) => (
+              <Card
+                key={index}
+                dados={item}
+                deleteTask={deleteTask}
+                concludeTask={concludeTask}
+              />
             ))}
           </S.List>
-          // <>
-          //   {dados.map((item) => (
-          //     <li>{item.descricao}</li>
-          //   ))}
-          // </>
         )}
       </S.Section>
     </>

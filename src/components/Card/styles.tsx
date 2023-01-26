@@ -1,7 +1,14 @@
 import styled, { css } from "styled-components";
+type PropsButton = {
+  status: boolean;
+};
 
-export const Container = styled.div`
-  ${({ theme }) => css`
+type Props = {
+  status: boolean;
+};
+
+export const Container = styled.div<Props>`
+  ${({ theme, status }) => css`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -10,6 +17,15 @@ export const Container = styled.div`
     width: 100%;
     background: ${theme.gray500};
     margin-bottom: 12px;
+
+    button {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid ${theme.blue};
+      background: ${theme.gray500};
+    }
 
     p {
       font-size: 14px;
@@ -22,32 +38,18 @@ export const Container = styled.div`
       color: ${theme.gray300};
       cursor: pointer;
     }
-  `}
-`;
-
-type PropsButton = {
-  status: boolean;
-};
-
-export const ButtonCheck = styled.button<PropsButton>`
-  ${({ theme, status }) => css`
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid ${theme.blue};
-    background: ${theme.gray500};
 
     ${status &&
     css`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: ${theme.gray100};
-      border: none;
-      background-color: ${theme.purple};
-      svg {
-        color: ${theme.gray100};
+      p {
+        text-decoration: line-through;
+      }
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background-color: ${theme.purple};
       }
     `}
   `}

@@ -4,18 +4,21 @@ import { PropsDados } from "../../libs";
 
 type Props = {
   dados: PropsDados;
+  deleteTask: (value: string) => void;
+  concludeTask: (value: string) => void;
 };
-export function Card({ dados }: Props) {
+
+export function Card({ dados, deleteTask, concludeTask }: Props) {
   return (
     <>
-      <S.Container>
+      <S.Container status={dados.status}>
         <div>
           {dados.status ? (
-            <S.ButtonCheck status={dados.status}>
-              <Check color="" />
-            </S.ButtonCheck>
+            <button onClick={() => concludeTask(dados.id)}>
+              <Check color="white" />
+            </button>
           ) : (
-            <S.ButtonCheck status={dados.status} />
+            <button onClick={() => concludeTask(dados.id)} />
           )}
         </div>
 
@@ -23,7 +26,7 @@ export function Card({ dados }: Props) {
           <p>{dados.descricao}</p>
         </div>
 
-        <div onClick={() => console.log("")}>
+        <div onClick={() => deleteTask(dados.id)}>
           <Trash size={24} />
         </div>
       </S.Container>

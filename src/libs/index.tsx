@@ -22,6 +22,7 @@ export type ColorProps = {
 };
 
 export type PropsDados = {
+  id: string;
   descricao: string;
   status: boolean;
 };
